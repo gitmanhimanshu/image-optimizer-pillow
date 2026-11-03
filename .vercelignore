@@ -1,0 +1,13 @@
+.git
+.github
+gallery_test_outputs/
+comparison/
+uploads/
+tests/
+*.pyc
+__pycache__/
+t.txt
+run_gallery_test.py
+setup_comparison.py
+api_example.py
+cli.py

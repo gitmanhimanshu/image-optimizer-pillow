@@ -7,3 +7,5 @@ comparison/
 .vercel/
 .env
 *.egg-info/
+
+.vercel
