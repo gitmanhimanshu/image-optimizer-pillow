@@ -1,0 +1,124 @@
+# Implement Category-Wise Image Optimization Using Python Pillow
+
+I want to implement an automatic image optimization and resizing system in my existing e-commerce application.
+
+## Objective
+
+Whenever a seller/admin uploads an image, automatically optimize it according to its image category.
+
+Different image categories have different required dimensions. The uploaded image should be resized while preserving its original aspect ratio and visual quality.
+
+**Important:**
+- Do NOT crop images.
+- Do NOT stretch or distort images.
+- Do NOT use any ML algorithm or GPT API.
+- Do NOT unnecessarily introduce complex image-processing dependencies.
+- Use Python Pillow (PIL) for image processing.
+
+## 1. Category-wise Image Configuration
+
+Create a centralized, configurable image configuration:
+
+```python
+IMAGE_CONFIG = {
+    "product": {
+        "width": 800,
+        "height": 800,
+        "quality": 88
+    },
+    "category": {
+        "width": 600,
+        "height": 400,
+        "quality": 88
+    },
+    "banner": {
+        "width": 1600,
+        "height": 500,
+        "quality": 90
+    },
+    "template": {
+        "width": 1200,
+        "height": 800,
+        "quality": 90
+    },
+    "logo": {
+        "width": 400,
+        "height": 200,
+        "quality": 90
+    }
+}
+```
+
+These dimensions should be configurable and easy to modify.
+
+## 2. Image Processing Requirements
+
+Use Python Pillow to:
+
+1. Read the uploaded image.
+2. Correct image orientation using EXIF metadata.
+3. Identify its category.
+4. Fetch the corresponding width, height and quality configuration.
+5. Resize while preserving the original aspect ratio.
+6. Never crop or stretch the original image.
+7. Use LANCZOS resampling for good visual quality.
+8. Convert supported images to WebP.
+9. Optimize the output file size.
+10. Preserve transparency where applicable, especially for logos and transparent PNG images.
+
+For images requiring exact canvas dimensions, use ImageOps.contain() and add suitable padding/background without cropping or distorting the image.
+
+Do not upscale low-resolution images unnecessarily.
+
+## 3. Integration Requirements
+
+Before implementing anything:
+
+- Analyze the existing project structure.
+- Identify all image upload endpoints and services.
+- Identify existing image storage (Cloudinary, AWS S3, Cloudflare R2, local storage, etc.).
+- Identify product, category, banner, template and logo upload flows.
+- Reuse the existing upload and storage architecture.
+
+Integrate image processing into the existing upload pipeline rather than creating an unrelated service.
+
+## 4. Important Constraints
+
+- Do not break existing image upload functionality.
+- Do not change unrelated APIs or database schemas.
+- Preserve existing image URLs and response formats wherever possible.
+- Avoid duplicate image processing.
+- Handle invalid files, unsupported formats and corrupted images gracefully.
+- Validate file size and actual image content.
+- Preserve original images separately if the existing architecture supports it.
+
+## 5. Testing
+
+Test the implementation using:
+
+- Portrait images.
+- Landscape images.
+- Square images.
+- High-resolution images.
+- Low-resolution images.
+- Transparent PNG images.
+- Different image formats.
+
+Verify that:
+
+- No image is cropped.
+- No image is distorted.
+- Aspect ratio is preserved.
+- Output dimensions follow category configuration.
+- Image quality remains good.
+- Output file size is optimized.
+
+## Expected Result
+
+A seller can upload any valid image, regardless of its original dimensions.
+
+The backend automatically identifies the image category and generates an optimized image according to that category's configuration.
+
+The entire implementation should be lightweight, maintainable, reusable and production-ready.
+
+**First inspect the existing codebase, explain the proposed integration points, and then implement the solution without disrupting existing functionality.**  .. 
